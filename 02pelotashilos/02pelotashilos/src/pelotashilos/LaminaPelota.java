@@ -7,7 +7,7 @@ import javax.swing.*;
 
 class LaminaPelota extends JPanel{
     public ArrayList<Pelota> pelotas = new ArrayList<Pelota>();
-    public void add(Pelota b){
+    public void agregarPelota(Pelota b){
         pelotas.add(b);
     }
     @Override //sobreescribiendo el metodo 

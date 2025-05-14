@@ -7,22 +7,26 @@ import java.util.*; //utilidades generales
 import javax.swing.*; //importa swing , conjunto de herramientas graficas de java
 
 class MarcoRebote extends JFrame{ //clase MarcoRebote que extiende hereda de JFrame
-    public LaminaPelota lamina; //panel personalizado donde se dibujaran la pelotas
+    public LaminaPelota laminaPelota; //panel personalizado donde se dibujaran la pelotas
     public static final int ANCHO = 450; 
     public static final int ALTO = 350;
     public static final int PASOS = 1000;
     public static final int RETARDO = 3;
-
+    double x=0;
+    double y=0;
     public MarcoRebote(){ // 
         setSize(ANCHO,ALTO); //establece el tamaño de ventana
         setTitle("Rebotes"); //titulo para la ventana , metodos heredan de JFrame
-        lamina = new LaminaPelota(); // creando panel donde se mostraran las pelotas
-        add(lamina,BorderLayout.CENTER); //centrando la ventana 
+        laminaPelota = new LaminaPelota(); // creando panel donde se mostraran las pelotas
+        add(laminaPelota,BorderLayout.CENTER); //centrando la ventana 
         JPanel laminaBotones = new JPanel(); //crenado panel para botones
+      
         ponerBoton(laminaBotones,"Comenzar", //añade el boton comenzar
             new ActionListener(){ //clase anonima para el manejo del clic, escucha este evento de mouse
-                public void actionPerformed(ActionEvent evento){ //
-                    crearPelota(); //llamando al metodo que inicia una nueva pelota con
+                public void actionPerformed(ActionEvent evento){ 
+                    crearPelota(x,y); //llamando al metodo que inicia una nueva pelota con
+                    x+=20;
+                    if(x>=laminaPelota.getBounds().getMaxX()){x=0;}
                 }
             }
         );//añadiendo el boton "cerrar" con su comportamiento
@@ -41,10 +45,10 @@ class MarcoRebote extends JFrame{ //clase MarcoRebote que extiende hereda de JFr
         boton.addActionListener(oyente); //asocia el manejador de eventos al boton
     }
 
-    public void crearPelota(){  //metodo que inicia una nueva pelota y su animacion
-        Pelota b = new Pelota(); //crea una nueva pelota
-        lamina.add(b); //añade la pelota al panel 
-        Runnable r = new PelotaRunnable(b,lamina); //creara un tarea que movera la pelota
+    public void crearPelota(double a,double b){  //metodo que inicia una nueva pelota y su animacion
+        Pelota p = new Pelota(a,b); //crea una nueva pelota
+        laminaPelota.agregarPelota(p); //añade la pelota al panel 
+        Runnable r = new PelotaRunnable(p,laminaPelota); //creara un tarea que movera la pelota
         Thread t = new Thread(r); //crea un hilo con esa tarea
         t.start(); //inicia el hilo, comienza a mover la pelota
         /*System.out.println("todu bem");

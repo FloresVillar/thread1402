@@ -5,13 +5,13 @@ public class PelotaRunnable implements Runnable{ //interfaz runnable que puede e
 
     private Pelota pelota; 
     private Component componente; //donde se va a 'mover' la pelota
-    public static final int PASOS =1000; //cantidad de veces que se movera
+    public static final int PASOS =2000; //cantidad de veces que se movera
     public static final int RETARDO =5; //retardo en milisegundos
 
 
     public PelotaRunnable(Pelota unaPelota, Component unComponente){ 
         pelota = unaPelota;
-        componente = unComponente;
+        componente = unComponente; 
     }
 
     public void run(){
